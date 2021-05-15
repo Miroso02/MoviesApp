@@ -7,24 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.*
 import com.example.movies.databinding.Fragment1LayoutBinding
 
-class Fragment1: Fragment(R.layout.fragment1_layout) {
+class Fragment1 : Fragment(R.layout.fragment1_layout) {
     private val model: SelectedMovieViewModel by activityViewModels()
     private var _binding: Fragment1LayoutBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = Fragment1LayoutBinding.inflate(layoutInflater, container, false)
-
-        binding.btn1.setOnClickListener {
-            setSelected(0)
-        }
-        binding.btn2.setOnClickListener {
-            setSelected(1)
+        binding.recyclerView.adapter = MyListAdapter(movies) {
+            setSelected(it)
         }
         return binding.root
     }
 
-    private fun setSelected(id: Int) {
-        model.setMovie(id)
+    private fun setSelected(value: Movie) {
+        model.movie.value = value
         parentFragmentManager.commit {
             setReorderingAllowed(true)
             replace<Fragment2>(R.id.fragment_container_view)

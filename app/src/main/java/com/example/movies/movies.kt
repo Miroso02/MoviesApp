@@ -16,5 +16,77 @@ val movies = listOf(
         directors = "my boi Nolan"
         cast = "idk too"
         genres = "sci-fi"
+    },
+    Movie().apply {
+        title = "asdf"
+        description = "asdf"
+        releaseDate = "asdf"
+        directors = "asdf"
+        cast = "asdf"
+        genres = "asdf"
+    },
+    Movie().apply {
+        title = "asdf1"
+        description = "asdf1"
+        releaseDate = "asdf1"
+        directors = "asdf1"
+        cast = "asdf1"
+        genres = "asdf1"
+    },
+    Movie().apply {
+        title = "asdf2"
+        description = "asdf2"
+        releaseDate = "asdf2"
+        directors = "asdf2"
+        cast = "asdf2"
+        genres = "asdf2"
+    },
+    Movie().apply {
+        title = "asdf"
+        description = "asdf"
+        releaseDate = "asdf"
+        directors = "asdf"
+        cast = "asdf"
+        genres = "asdf"
+    },
+    Movie().apply {
+        title = "asdf1"
+        description = "asdf1"
+        releaseDate = "asdf1"
+        directors = "asdf1"
+        cast = "asdf1"
+        genres = "asdf1"
+    },
+    Movie().apply {
+        title = "asdf2"
+        description = "asdf2"
+        releaseDate = "asdf2"
+        directors = "asdf2"
+        cast = "asdf2"
+        genres = "asdf2"
+    },
+    Movie().apply {
+        title = "asdf"
+        description = "asdf"
+        releaseDate = "asdf"
+        directors = "asdf"
+        cast = "asdf"
+        genres = "asdf"
+    },
+    Movie().apply {
+        title = "asdf1"
+        description = "asdf1"
+        releaseDate = "asdf1"
+        directors = "asdf1"
+        cast = "asdf1"
+        genres = "asdf1"
+    },
+    Movie().apply {
+        title = "asdf2"
+        description = "asdf2"
+        releaseDate = "asdf2"
+        directors = "asdf2"
+        cast = "asdf2"
+        genres = "asdf2"
     }
 )
