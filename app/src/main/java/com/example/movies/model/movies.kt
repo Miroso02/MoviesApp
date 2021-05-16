@@ -1,4 +1,4 @@
-package com.example.movies
+package com.example.movies.model
 
 val movies = listOf(
     Movie().apply {
@@ -90,3 +90,4 @@ val movies = listOf(
         genres = "asdf2"
     }
 )
+    .onEachIndexed { i, m -> m.id = i }

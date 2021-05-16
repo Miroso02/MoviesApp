@@ -1,4 +1,4 @@
-package com.example.movies
+package com.example.movies.viewModel
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,17 +7,20 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.movies.R
+import com.example.movies.model.Movie
+import com.example.movies.model.movies
 
-class MyListAdapter(val movies: List<Movie>, private val onClick: (Movie) -> Unit) :
-    ListAdapter<Movie, MyListAdapter.MyListViewHolder>(MovieDiffCallback) {
+class MoviesAdapter(val movies: List<Movie>, private val onClick: (Int) -> Unit) :
+    ListAdapter<Movie, MoviesAdapter.MyListViewHolder>(MovieDiffCallback) {
 
-    class MyListViewHolder(itemView: View, val onClick: (Movie) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    class MyListViewHolder(itemView: View, val onClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.movieTtl)
         val description: TextView = itemView.findViewById(R.id.movieDesc)
 
         init {
             itemView.setOnClickListener {
-                onClick(movies[adapterPosition])
+                onClick(movies[adapterPosition].id)
             }
         }
     }
@@ -25,7 +28,6 @@ class MyListAdapter(val movies: List<Movie>, private val onClick: (Movie) -> Uni
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyListViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.movie_item, parent, false)
-
         return MyListViewHolder(view, onClick)
     }
 
