@@ -1,6 +1,6 @@
 package com.example.movies.retrofitModel
 
-data class Movie (
+data class RemoteMovie (
     val id: Int,
     val title: String,
     val overview: String,
