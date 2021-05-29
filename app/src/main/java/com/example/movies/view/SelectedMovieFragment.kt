@@ -34,10 +34,6 @@ class SelectedMovieFragment : Fragment(R.layout.fragment2_layout) {
             with(binding) {
                 mTitle.text = movie.title
                 mDesc.text = movie.description
-                mReleaseDate.text = movie.releaseDate
-                mDirectors.text = movie.directors
-                mCast.text = movie.cast
-                mGenres.text = movie.genres
             }
         }
         moviesVM.selectedMovie.observe(this, movieObserver)

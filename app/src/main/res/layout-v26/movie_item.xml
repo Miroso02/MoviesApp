@@ -12,10 +12,9 @@
             android:text="TextView"
             android:layout_width="match_parent"
             android:textAlignment="center"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/moviePoster" android:background="@color/black"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeMaxTextSize="22sp"
+            android:textSize="20sp"
             android:autoSizeTextType="uniform"
             android:autoSizeStepGranularity="2sp"
             android:textColor="#FFFFFF"
@@ -23,8 +22,8 @@
     <ImageView
             android:id="@+id/moviePoster"
             android:layout_width="match_parent"
-            android:layout_height="200dp" tools:srcCompat="@tools:sample/avatars"
-            app:layout_constraintTop_toBottomOf="@+id/movieTtl" android:background="#222222"
+            android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars"
+            app:layout_constraintTop_toBottomOf="@+id/movieTtl" android:background="@color/black"
             app:layout_constraintStart_toStartOf="parent"
     />
     <TextView

@@ -1,11 +1,10 @@
 package com.example.movies.model
 
-class Movie() {
-    var id = 0
-    var title: String = ""
-    var description: String = ""
-    var releaseDate: String = ""
-    var directors: String = ""
-    var cast: String = ""
-    var genres: String = ""
-}
+import android.graphics.Bitmap
+
+data class Movie(
+    val id: Int = 0,
+    val title: String = "Default",
+    val description: String = "No description",
+    var bmp: Bitmap? = null
+)

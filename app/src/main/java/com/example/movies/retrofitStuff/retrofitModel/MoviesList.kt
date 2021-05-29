@@ -1,4 +1,4 @@
-package com.example.movies.retrofitModel
+package com.example.movies.retrofitStuff.retrofitModel
 
 data class MoviesList (
     val page: Int,
