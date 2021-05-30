@@ -1,47 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
-    <TextView
-            android:text="TextView"
-            android:layout_width="131dp"
-            android:layout_height="22dp" android:id="@+id/mCast"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="136dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="128dp" android:layout_marginStart="128dp"/>
-    <TextView
-            android:text="TextView"
-            android:layout_width="131dp"
-            android:layout_height="22dp" android:id="@+id/mGenres"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="156dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="128dp" android:layout_marginStart="128dp"/>
-    <TextView
-            android:text="TextView"
-            android:layout_width="131dp"
-            android:layout_height="22dp" android:id="@+id/mDirectors"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="116dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="128dp" android:layout_marginStart="128dp"/>
-    <TextView
-            android:text="TextView"
-            android:layout_width="131dp"
-            android:layout_height="22dp" android:id="@+id/mReleaseDate"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="96dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="128dp" android:layout_marginStart="128dp"/>
-    <TextView
-            android:text="TextView"
-            android:layout_width="131dp"
-            android:layout_height="22dp" android:id="@+id/mDesc"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="76dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="128dp" android:layout_marginStart="128dp"/>
-    <TextView
-            android:text="TextView"
-            android:layout_width="131dp"
-            android:layout_height="22dp" android:id="@+id/mTitle"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="56dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="128dp" android:layout_marginStart="128dp"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical" android:background="@color/black">
+        <TextView
+                android:id="@+id/mTitle"
+                android:background="@drawable/border_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                app:layout_constraintTop_toTopOf="parent" android:gravity="center_horizontal"/>
+        <ImageView
+                android:id="@+id/mPoster"
+                android:background="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTitle"/>
+        <TableLayout android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
+            <TableRow android:background="@drawable/border_background" android:weightSum="4">
+                <TextView
+                        android:background="@color/black"
+                        android:layout_width="wrap_content"
+                        android:text="@string/genres"
+                        android:textColor="@color/green"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"/>
+                <TextView
+                        android:id="@+id/mGenres"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:background="@drawable/border_background"
+                        android:paddingHorizontal="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/mPoster"
+                        app:layout_constraintStart_toStartOf="parent"/>
+            </TableRow>
+            <TableRow android:background="@drawable/border_background">
+                <TextView
+                        android:background="@color/black"
+                        android:layout_width="wrap_content"
+                        android:text="@string/directors"
+                        android:textColor="@color/green"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"/>
+                <TextView
+                        android:id="@+id/mDirectors"
+                        android:background="@drawable/border_background"
+                        android:paddingHorizontal="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/mGenres"
+                        app:layout_constraintStart_toStartOf="@+id/mGenres"/>
+            </TableRow>
+            <TableRow android:background="@drawable/border_background">
+                <TextView
+                        android:background="@color/black"
+                        android:layout_width="wrap_content"
+                        android:text="@string/cast"
+                        android:textColor="@color/green"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"/>
+                <TextView
+                        android:id="@+id/mCast"
+                        android:background="@drawable/border_background"
+                        android:paddingHorizontal="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/mDirectors"
+                        app:layout_constraintStart_toStartOf="@+id/mDirectors"/>
+            </TableRow>
+            <TableRow android:background="@drawable/border_background">
+                <TextView
+                        android:background="@color/black"
+                        android:layout_width="wrap_content"
+                        android:text="@string/description"
+                        android:textColor="@color/green"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"/>
+                <TextView
+                        android:id="@+id/mDesc"
+                        android:textColor="@color/white"
+                        android:background="@drawable/border_background"
+                        android:textSize="12sp"
+                        android:paddingHorizontal="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/mReleaseDate"
+                        app:layout_constraintStart_toStartOf="@+id/mReleaseDate"/>
+            </TableRow>
+            <TableRow android:background="@drawable/border_background">
+                <TextView
+                        android:background="@color/black"
+                        android:layout_width="wrap_content"
+                        android:text="@string/release_date"
+                        android:textColor="@color/green"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"/>
+                <TextView
+                        android:id="@+id/mReleaseDate"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:background="@drawable/border_background"
+                        android:paddingHorizontal="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/mCast"
+                        app:layout_constraintStart_toStartOf="@+id/mCast"/>
+            </TableRow>
+
+        </TableLayout>
+    </LinearLayout>
+</ScrollView>

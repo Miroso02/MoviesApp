@@ -25,7 +25,7 @@ class AllMoviesFragment : Fragment(R.layout.fragment1_layout) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = Fragment1LayoutBinding.inflate(layoutInflater, container, false)
-        adapter = MoviesAdapter(moviesVM.moviesList.value ?: arrayListOf(), this::setSelected)
+        adapter = MoviesAdapter(this::setSelected)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
 
@@ -35,24 +35,15 @@ class AllMoviesFragment : Fragment(R.layout.fragment1_layout) {
                 if (movie.bmp == null)
                     movie.bmp = BitmapFactory.decodeResource(resources, R.drawable.loading_poster)
             }
-            val i = moviesVM.currentChangedMovie
-            if (i == -1) {
-                adapter.movies = newValue
-                adapter.notifyDataSetChanged()
-            }
-            else {
-                adapter.movies[i] = newValue[i]
-                adapter.notifyItemChanged(i)
-                moviesVM.currentChangedMovie = -1
-            }
+            adapter.submitList(newValue)
         }
 
         moviesVM.moviesList.observe(this, observer)
         return binding.root
     }
 
-    private fun setSelected(id: Int) {
-        moviesVM.setSelected(id)
+    private fun setSelected(index: Int) {
+        moviesVM.setSelectedMovie(index)
         parentFragmentManager.commit {
             setReorderingAllowed(true)
             replace<SelectedMovieFragment>(R.id.fragment_container_view)

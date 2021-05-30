@@ -2,7 +2,9 @@ package com.example.movies.retrofitStuff
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import com.example.movies.retrofitStuff.retrofitModel.MovieCredits
 import com.example.movies.retrofitStuff.retrofitModel.MoviesList
+import com.example.movies.retrofitStuff.retrofitModel.RemoteDetailedMovie
 import com.example.movies.retrofitStuff.retrofitModel.RemoteMovie
 import okhttp3.ResponseBody
 import retrofit2.*
@@ -11,7 +13,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class MyMoviesRepository : MoviesRepository {
+object MyMoviesRepository : MoviesRepository {
     private val moviesService: MoviesAPI by lazy {
         Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")
@@ -32,16 +34,41 @@ class MyMoviesRepository : MoviesRepository {
         }
     }
 
+    override suspend fun getDetailedMovie(id: Int): RemoteDetailedMovie =
+        suspendCoroutine { continuation ->
+            moviesService.getDetailedMovie(id).enqueue(object : Callback<RemoteDetailedMovie> {
+                override fun onResponse(call: Call<RemoteDetailedMovie>, response: Response<RemoteDetailedMovie>) {
+                    response.body()?.also {
+                        continuation.resume(it)
+                    }
+                }
 
-    override suspend fun getDetailedMovie(id: Int): RemoteMovie =
-        RemoteMovie(-1, "", "", "")
+                override fun onFailure(call: Call<RemoteDetailedMovie>, t: Throwable) {
+                    continuation.resumeWithException(Exception("something got wrong"))
+                }
+            })
+        }
+    override suspend fun getMovieCredits(id: Int): MovieCredits =
+        suspendCoroutine { continuation ->
+            moviesService.getMovieCredits(id).enqueue(object : Callback<MovieCredits> {
+                override fun onResponse(call: Call<MovieCredits>, response: Response<MovieCredits>) {
+                    response.body()?.also {
+                        continuation.resume(it)
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieCredits>, t: Throwable) {
+                    continuation.resumeWithException(Exception("something got wrong"))
+                }
+            })
+        }
 
     override suspend fun searchMovies(searchPrompt: String): List<RemoteMovie> =
         getMoviesList()
 
-    override suspend fun getMoviePoster(remoteMovie: RemoteMovie): Bitmap? {
+    override suspend fun getMoviePoster(posterPath: String): Bitmap? {
         return suspendCoroutine { continuation ->
-            moviesService.getMovieImage(remoteMovie.poster_path ?: "").enqueue(object : Callback<ResponseBody> {
+            moviesService.getMovieImage(posterPath).enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     val byteStream = response.body()?.byteStream()
                     val bmp = BitmapFactory.decodeStream(byteStream)
