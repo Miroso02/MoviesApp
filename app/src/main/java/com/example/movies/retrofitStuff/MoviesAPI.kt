@@ -15,15 +15,15 @@ interface MoviesAPI {
     }
 
     @GET("trending/movie/week?api_key=$API_KEY")
-    fun getMoviesList(@Query("page") page: Int): Call<MoviesList>
+    suspend fun getMoviesList(@Query("page") page: Int): MoviesList
 
     @GET("movie/{id}?api_key=$API_KEY")
-    fun getDetailedMovie(@Path("id") id: Int): Call<RemoteDetailedMovie>
+    suspend fun getDetailedMovie(@Path("id") id: Int): RemoteDetailedMovie
 
     @GET("movie/{id}/credits?api_key=$API_KEY")
-    fun getMovieCredits(@Path("id") id: Int): Call<MovieCredits>
+    suspend fun getMovieCredits(@Path("id") id: Int): MovieCredits
 
     @GET("https://image.tmdb.org/t/p/w780/{imagePath}")
-    fun getMovieImage(@Path("imagePath") imagePath: String): Call<ResponseBody>
+    suspend fun getMovieImage(@Path("imagePath") imagePath: String): ResponseBody
 
 }

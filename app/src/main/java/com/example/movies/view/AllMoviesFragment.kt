@@ -11,6 +11,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.movies.R
 import com.example.movies.databinding.Fragment1LayoutBinding
 import com.example.movies.model.Movie
@@ -27,9 +28,17 @@ class AllMoviesFragment : Fragment(R.layout.fragment1_layout) {
         _binding = Fragment1LayoutBinding.inflate(layoutInflater, container, false)
         adapter = MoviesAdapter(this::setSelected)
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
+        val layoutManager = LinearLayoutManager(this.context)
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (layoutManager.findLastVisibleItemPosition() == moviesVM.currentPage * 20 - 1)
+                    moviesVM.getMovies(moviesVM.currentPage + 1)
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
 
-        moviesVM.getMovies()
+        moviesVM.getMovies(1)
         val observer = Observer<ArrayList<Movie>> { newValue ->
             for (movie in newValue) {
                 if (movie.bmp == null)

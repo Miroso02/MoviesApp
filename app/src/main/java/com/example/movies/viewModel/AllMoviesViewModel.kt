@@ -1,6 +1,5 @@
 package com.example.movies.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,30 +12,34 @@ import kotlinx.coroutines.launch
 
 class AllMoviesViewModel : ViewModel() {
     private val moviesRepository: MoviesRepository = MyMoviesRepository
+    var currentPage = 0
+        private set
+    var moviesList: MutableLiveData<ArrayList<Movie>> = MutableLiveData(arrayListOf())
+        private set
     private var selectedId = -1
     val selectedMovie = MutableLiveData<DetailedMovie?>(null)
-    var moviesList: MutableLiveData<ArrayList<Movie>> = MutableLiveData(arrayListOf())
 
-    fun getMovies() {
-        if (moviesList.value?.size == 0) {
+    fun getMovies(pageToLoad: Int) {
+        if (pageToLoad > currentPage) {
+            currentPage = pageToLoad
             viewModelScope.launch {
-                val remoteList = moviesRepository.getMoviesList()
+                val result = moviesRepository.getMoviesList(currentPage)
+                val remoteList = result.getOrThrow()
                 val list = remoteList.map(this@AllMoviesViewModel::remoteMovieToMovie)
-                moviesList.value = ArrayList(list)
-
-                Log.v("movieVM", "loaded ${list.size} movies")
+                moviesList.value = moviesList.value?.apply { addAll(ArrayList(list)) }
                 loadMoviesImages(remoteList)
             }
         }
     }
 
+    fun setSelectedMovie(index: Int) {
+        selectedId = moviesList.value!![index].id
+    }
+
     fun getDetailedMovie() {
         viewModelScope.launch {
-            Log.v("moviesVM", "loading detailed movie...")
             val movie = moviesRepository.getDetailedMovie(selectedId)
-            Log.v("moviesVM", "loaded movie")
             val credits = moviesRepository.getMovieCredits(selectedId)
-            Log.v("moviesVM", "loaded credits")
             val detailedMovie = DetailedMovie(
                 movie.title,
                 movie.overview,
@@ -61,14 +64,11 @@ class AllMoviesViewModel : ViewModel() {
         }
     }
 
-    fun setSelectedMovie(index: Int) {
-        selectedId = moviesList.value!![index].id
-    }
-
     private suspend fun loadMoviesImages(remoteList: List<RemoteMovie>) {
         for (i in remoteList.indices) {
+            val j = (currentPage - 1) * 20 + i
             moviesList.value = ArrayList(moviesList.value).also {
-                it[i] = Movie(it[i]).apply { bmp = moviesRepository.getMoviePoster(remoteList[i].poster_path ?: "") }
+                it[j] = Movie(it[j]).apply { bmp = moviesRepository.getMoviePoster(remoteList[i].poster_path ?: "") }
             }
         }
     }
