@@ -9,20 +9,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.movies.R
-import com.example.movies.databinding.Fragment2LayoutBinding
+import com.example.movies.databinding.SelectedMovieLayoutBinding
 import com.example.movies.model.DetailedMovie
-import com.example.movies.viewModel.AllMoviesViewModel
+import com.example.movies.viewModel.MoviesViewModel
 
-class SelectedMovieFragment : Fragment(R.layout.fragment2_layout) {
-    private val moviesVM: AllMoviesViewModel by activityViewModels()
-    private var _binding: Fragment2LayoutBinding? = null
+class SelectedMovieFragment : Fragment(R.layout.selected_movie_layout) {
+    private val moviesVM: MoviesViewModel by activityViewModels()
+    private var _binding: SelectedMovieLayoutBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = Fragment2LayoutBinding.inflate(inflater)
+        _binding = SelectedMovieLayoutBinding.inflate(inflater)
         moviesVM.getDetailedMovie()
         return binding.root
     }
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val movieObserver = Observer<DetailedMovie?> { movie ->
@@ -44,5 +44,10 @@ class SelectedMovieFragment : Fragment(R.layout.fragment2_layout) {
             }
         }
         moviesVM.selectedMovie.observe(this, movieObserver)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

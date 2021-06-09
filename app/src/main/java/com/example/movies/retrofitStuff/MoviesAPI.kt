@@ -26,4 +26,6 @@ interface MoviesAPI {
     @GET("https://image.tmdb.org/t/p/w780/{imagePath}")
     suspend fun getMovieImage(@Path("imagePath") imagePath: String): ResponseBody
 
+    @GET("search/movie?api_key=$API_KEY")
+    suspend fun searchMovies(@Query("page") page: Int, @Query("query") query: String): MoviesList
 }

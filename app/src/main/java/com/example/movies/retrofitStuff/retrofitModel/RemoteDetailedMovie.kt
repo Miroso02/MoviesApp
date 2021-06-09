@@ -1,9 +1,13 @@
 package com.example.movies.retrofitStuff.retrofitModel
 
+import com.google.gson.annotations.SerializedName
+
 data class RemoteDetailedMovie(
     val title: String,
     val overview: String,
-    val poster_path: String?,
+    @SerializedName("poster_path")
+    val posterPath: String?,
     val genres: List<Genre>,
-    val release_date: String
+    @SerializedName("release_date")
+    val releaseDate: String
 )

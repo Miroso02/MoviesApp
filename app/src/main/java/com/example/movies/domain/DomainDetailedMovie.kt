@@ -1,13 +1,11 @@
-package com.example.movies.model
+package com.example.movies.domain
 
-import android.graphics.Bitmap
-
-data class DetailedMovie(
+data class DomainDetailedMovie(
     val title: String,
     val description: String,
     val releaseDate: String,
     val directors: String,
     val cast: String,
     val genres: String,
-    var bmp: Bitmap? = null
+    var imagePath: String?
 )

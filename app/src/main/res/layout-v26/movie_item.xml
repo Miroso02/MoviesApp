@@ -9,7 +9,6 @@
 
     <TextView
             android:id="@+id/movieTtl"
-            android:text="TextView"
             android:layout_width="match_parent"
             android:textAlignment="center"
             android:layout_height="wrap_content"
@@ -28,7 +27,6 @@
     />
     <TextView
             android:id="@+id/movieDesc"
-            android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"

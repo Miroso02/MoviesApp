@@ -7,6 +7,4 @@ data class Movie(
     val title: String = "Default",
     val description: String = "No description",
     var bmp: Bitmap? = null
-) {
-    constructor(movie: Movie) : this(movie.id, movie.title, movie.description, movie.bmp)
-}
+)

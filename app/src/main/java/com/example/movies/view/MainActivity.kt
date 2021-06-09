@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add<AllMoviesFragment>(R.id.fragment_container_view)
+                add<MoviesListFragment>(R.id.fragment_container_view)
             }
         }
     }
