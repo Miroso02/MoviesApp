@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.example.movies.MyApplication
 import com.example.movies.R
 import com.example.movies.databinding.SelectedMovieLayoutBinding
 import com.example.movies.ui.model.UIDetailedMovie
 import com.example.movies.ui.viewModel.MoviesViewModel
 
 class SelectedMovieFragment : Fragment(R.layout.selected_movie_layout) {
-    private val moviesVM: MoviesViewModel by activityViewModels()
+    private lateinit var moviesVM: MoviesViewModel
     private var _binding: SelectedMovieLayoutBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -25,6 +25,8 @@ class SelectedMovieFragment : Fragment(R.layout.selected_movie_layout) {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        moviesVM = (activity?.application as MyApplication).appContainer!!.moviesViewModel
+
         val movieObserver = Observer<UIDetailedMovie?> { movie ->
             if (movie != null) {
                 with(binding) {

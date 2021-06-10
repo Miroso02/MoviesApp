@@ -2,14 +2,12 @@ package com.example.movies.domain
 
 import com.example.movies.domain.model.DomainDetailedMovie
 import com.example.movies.domain.model.DomainMovie
-import com.example.movies.db.MyDBMoviesDatasource
-import com.example.movies.remote.RemoteMoviesDatasource
 import java.io.InputStream
 
-class DBCachingMoviesRepository : MoviesRepository {
-    private val remoteDatasource: MoviesDatasource = RemoteMoviesDatasource()
-    private val dbDatasource: MyDBMoviesDatasource = MyDBMoviesDatasource()
-
+class DBCachingMoviesRepository(
+    private val remoteDatasource: MoviesDatasource,
+    private val dbDatasource: MoviesLocalDatasource
+) : MoviesRepository {
     override suspend fun getMovies(page: Int, searchPrompt: String?): Result<List<DomainMovie>> =
         remoteDatasource.getMovies(page, searchPrompt)
 

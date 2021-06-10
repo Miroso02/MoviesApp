@@ -4,16 +4,14 @@ import android.graphics.BitmapFactory
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.movies.domain.MoviesRepository
 import com.example.movies.domain.model.DomainDetailedMovie
 import com.example.movies.domain.model.DomainMovie
-import com.example.movies.domain.DBCachingMoviesRepository
-import com.example.movies.domain.MoviesRepository
 import com.example.movies.ui.model.UIDetailedMovie
 import com.example.movies.ui.model.UIMovie
 import kotlinx.coroutines.launch
 
-class MoviesViewModel : ViewModel() {
-    private val moviesRepository: MoviesRepository = DBCachingMoviesRepository()
+class MoviesViewModel(private val moviesRepository: MoviesRepository) : ViewModel() {
     var currentPage = 0
     var moviesList: MutableLiveData<MutableList<UIMovie>> = MutableLiveData(mutableListOf())
     private var selectedId = -1

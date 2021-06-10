@@ -10,7 +10,3 @@ abstract class MoviesDB : RoomDatabase() {
     abstract fun imagesDao(): DBMoviePosterDAO
     abstract fun detailedMoviesDAO(): DBDetailedMovieDAO
 }
-
-var moviesDB: MoviesDB? = null
-var imagesDAO: DBMoviePosterDAO? = null
-var detailedMoviesDAO: DBDetailedMovieDAO? = null
