@@ -4,10 +4,8 @@ import com.example.movies.domain.model.DomainDetailedMovie
 import com.example.movies.domain.model.DomainMovie
 import java.io.InputStream
 
-interface MoviesRepository {
-    suspend fun getMovies(page: Int, searchPrompt: String?): Result<List<DomainMovie>>
-
+interface MoviesDatasource {
+    suspend fun getMovies(page: Int, searchPrompt: String? = null): Result<List<DomainMovie>>
+    suspend fun getMoviePoster(posterPath: String): Result<InputStream>
     suspend fun getDetailedMovie(id: Int): Result<DomainDetailedMovie>
-
-    suspend fun getMoviePoster(imagePath: String?): Result<InputStream>
 }
