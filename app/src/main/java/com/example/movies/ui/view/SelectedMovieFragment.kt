@@ -25,7 +25,7 @@ class SelectedMovieFragment : Fragment(R.layout.selected_movie_layout) {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        moviesVM = (activity?.application as MyApplication).appContainer!!.moviesViewModel
+        moviesVM = (requireActivity().application as MyApplication).appContainer.moviesViewModel
 
         val movieObserver = Observer<UIDetailedMovie?> { movie ->
             if (movie != null) {

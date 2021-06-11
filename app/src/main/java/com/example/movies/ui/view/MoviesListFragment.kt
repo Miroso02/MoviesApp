@@ -32,7 +32,7 @@ class MoviesListFragment : Fragment(R.layout.movies_list_layout) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        moviesVM = (activity?.application as MyApplication).appContainer!!.moviesViewModel
+        moviesVM = (requireActivity().application as MyApplication).appContainer.moviesViewModel
 
         val listObserver = Observer<MutableList<UIMovie>> { newList ->
             for (movie in newList) {
