@@ -2,6 +2,7 @@ package com.example.movies.domain
 
 import com.example.movies.domain.model.DomainDetailedMovie
 import com.example.movies.domain.model.DomainMovie
+import dagger.Binds
 import java.io.InputStream
 
 interface MoviesRepository {

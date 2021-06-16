@@ -4,8 +4,9 @@ import android.util.Log
 import com.example.movies.domain.model.DomainDetailedMovie
 import com.example.movies.domain.model.DomainMovie
 import java.io.InputStream
+import javax.inject.Inject
 
-class DBCachingMoviesRepository(
+class DBCachingMoviesRepository @Inject constructor(
     private val remoteDatasource: MoviesDatasource,
     private val dbDatasource: MoviesLocalDatasource
 ) : MoviesRepository {
@@ -27,7 +28,6 @@ class DBCachingMoviesRepository(
         val dbResult = dbDatasource.getMoviePoster(imagePath ?: "")
         if (dbResult.isSuccess)
             return dbResult
-        Log.v(null, "database failed")
         val remoteResult = remoteDatasource.getMoviePoster(imagePath ?: "")
         if (remoteResult.isSuccess) {
             val stream = remoteResult.getOrThrow()

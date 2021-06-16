@@ -9,8 +9,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.io.InputStream
+import javax.inject.Inject
 
-class RemoteMoviesDatasource : MoviesDatasource {
+class RemoteMoviesDatasource @Inject constructor() : MoviesDatasource {
     private val moviesService: MoviesAPI by lazy {
         Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")

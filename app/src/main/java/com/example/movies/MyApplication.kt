@@ -3,9 +3,12 @@ package com.example.movies
 import android.app.Application
 
 class MyApplication : Application() {
-    lateinit var appContainer: AppContainer
+    lateinit var appComponent: ApplicationComponent
     override fun onCreate() {
         super.onCreate()
-        appContainer = AppContainer(applicationContext)
+        appComponent = DaggerApplicationComponent
+            .builder()
+            .applicationModule(ApplicationModule(applicationContext))
+            .build()
     }
 }

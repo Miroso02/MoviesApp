@@ -15,15 +15,18 @@ import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.movies.MoviesVMProvider
 import com.example.movies.MyApplication
 import com.example.movies.R
 import com.example.movies.databinding.MoviesListLayoutBinding
 import com.example.movies.ui.model.UIMovie
 import com.example.movies.ui.viewModel.MoviesViewModel
 import com.example.movies.ui.viewModel.MoviesAdapter
+import javax.inject.Inject
 
 class MoviesListFragment : Fragment(R.layout.movies_list_layout) {
-    private lateinit var moviesVM: MoviesViewModel
+    @Inject lateinit var vmProvider: MoviesVMProvider
+    private val moviesVM get() = vmProvider.instance
     private var _binding: MoviesListLayoutBinding? = null
     private val binding get() = _binding!!
     private var adapter = MoviesAdapter(this::setSelected)
@@ -31,8 +34,8 @@ class MoviesListFragment : Fragment(R.layout.movies_list_layout) {
     private var defaultImageBitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (requireActivity().application as MyApplication).appComponent.injectVMListFragment(this)
         super.onCreate(savedInstanceState)
-        moviesVM = (requireActivity().application as MyApplication).appContainer.moviesViewModel
 
         val listObserver = Observer<MutableList<UIMovie>> { newList ->
             for (movie in newList) {
