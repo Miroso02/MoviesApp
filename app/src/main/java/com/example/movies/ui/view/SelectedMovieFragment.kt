@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import com.example.movies.MoviesVMProvider
-import com.example.movies.MyApplication
 import com.example.movies.R
 import com.example.movies.databinding.SelectedMovieLayoutBinding
 import com.example.movies.ui.model.UIDetailedMovie
 import com.example.movies.ui.viewModel.MoviesViewModel
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SelectedMovieFragment : Fragment(R.layout.selected_movie_layout) {
-    @Inject lateinit var vmProvider: MoviesVMProvider
-    private val moviesVM get() = vmProvider.instance
+    private val moviesVM: MoviesViewModel by activityViewModels()
     private var _binding: SelectedMovieLayoutBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -27,7 +26,6 @@ class SelectedMovieFragment : Fragment(R.layout.selected_movie_layout) {
     }
     
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity().application as MyApplication).appComponent.injectVMSelectedFragment(this)
         super.onCreate(savedInstanceState)
 
         val movieObserver = Observer<UIDetailedMovie?> { movie ->

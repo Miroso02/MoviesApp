@@ -10,23 +10,22 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movies.MoviesVMProvider
-import com.example.movies.MyApplication
 import com.example.movies.R
 import com.example.movies.databinding.MoviesListLayoutBinding
 import com.example.movies.ui.model.UIMovie
-import com.example.movies.ui.viewModel.MoviesViewModel
 import com.example.movies.ui.viewModel.MoviesAdapter
-import javax.inject.Inject
+import com.example.movies.ui.viewModel.MoviesViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MoviesListFragment : Fragment(R.layout.movies_list_layout) {
-    @Inject lateinit var vmProvider: MoviesVMProvider
-    private val moviesVM get() = vmProvider.instance
+    private val moviesVM: MoviesViewModel by activityViewModels()
     private var _binding: MoviesListLayoutBinding? = null
     private val binding get() = _binding!!
     private var adapter = MoviesAdapter(this::setSelected)
@@ -34,7 +33,6 @@ class MoviesListFragment : Fragment(R.layout.movies_list_layout) {
     private var defaultImageBitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity().application as MyApplication).appComponent.injectVMListFragment(this)
         super.onCreate(savedInstanceState)
 
         val listObserver = Observer<MutableList<UIMovie>> { newList ->

@@ -8,12 +8,13 @@ import com.example.movies.db.model.DBDetailedMovie
 import com.example.movies.domain.model.DomainDetailedMovie
 import com.example.movies.domain.model.DomainMovie
 import com.example.movies.domain.MoviesLocalDatasource
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
 import java.io.File
 import java.io.InputStream
 import javax.inject.Inject
 
-class DBMoviesDatasource @Inject constructor(context: Context) : MoviesLocalDatasource {
+class DBMoviesDatasource @Inject constructor(@ApplicationContext context: Context) : MoviesLocalDatasource {
     private var moviesDB: MoviesDB = Room.databaseBuilder(context, MoviesDB::class.java, "movies-database")
         .fallbackToDestructiveMigration()
         .build()

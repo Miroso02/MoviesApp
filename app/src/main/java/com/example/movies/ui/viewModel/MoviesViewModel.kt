@@ -9,10 +9,12 @@ import com.example.movies.domain.model.DomainDetailedMovie
 import com.example.movies.domain.model.DomainMovie
 import com.example.movies.ui.model.UIDetailedMovie
 import com.example.movies.ui.model.UIMovie
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@HiltViewModel
 class MoviesViewModel @Inject constructor(private val moviesRepository: MoviesRepository) : ViewModel() {
     var currentPage = 0
     var moviesList: MutableLiveData<MutableList<UIMovie>> = MutableLiveData(mutableListOf())

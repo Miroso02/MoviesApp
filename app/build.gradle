@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id("dagger.hilt.android.plugin")
 }
 apply plugin: 'kotlin-kapt'
 
@@ -44,6 +45,9 @@ dependencies {
 
     implementation 'com.google.dagger:dagger:2.37'
     kapt 'com.google.dagger:dagger-compiler:2.37'
+
+    implementation("com.google.dagger:hilt-android:2.35")
+    kapt("com.google.dagger:hilt-android-compiler:2.35")
 
     implementation 'androidx.room:room-ktx:2.3.0'
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'

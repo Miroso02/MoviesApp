@@ -1,14 +1,7 @@
 package com.example.movies
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class MyApplication : Application() {
-    lateinit var appComponent: ApplicationComponent
-    override fun onCreate() {
-        super.onCreate()
-        appComponent = DaggerApplicationComponent
-            .builder()
-            .applicationModule(ApplicationModule(applicationContext))
-            .build()
-    }
-}
+@HiltAndroidApp
+class MyApplication : Application()
