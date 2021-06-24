@@ -35,13 +35,12 @@ class DBMoviesDatasource(context: Context) : MoviesLocalDatasource {
         try {
             val posterPath0 = posterPath.drop(1)
             val file = File(imagesDir, posterPath0)
-            if (!file.exists())
-                Result.failure(NullPointerException("no poster found"))
-            else
-                withContext(Dispatchers.IO) {
-                    Log.v(null, "loaded from file")
+            withContext(Dispatchers.IO) {
+                if (!file.exists())
+                    Result.failure(NullPointerException("no poster found"))
+                else
                     Result.success(contextWrapper.openFileInput(posterPath0))
-                }
+            }
         } catch (e: Exception) {
             Result.failure(e)
         }
